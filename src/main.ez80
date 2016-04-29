@@ -1,4 +1,4 @@
-
+;http://pastebin.com/yy9kUssg
 .nolist 
 #include "ti84pce.inc" 
 .list 
@@ -7,9 +7,9 @@
 #define menuY textShadow	 
 #define playerTileX menuY+1 			;24 bit value 
 #define playerTileY playerTileX+3		;8 bit value
-#define playerOfsetX playerTileY+1		;8 bit
-#define playerOfsetY playerOfsetX+1		;8 bit
-#define menuKeyDown playerOfsetY+1
+#define playerOfsetX playerTileY+1		;24 bit
+#define playerOfsetY playerOfsetX+3		;8 bit
+#define menuKeyDown playerOfsetY+3
 #define tileMapBuffer menuKeyDown+1
 #define BPlus1 tileMapBuffer+3
 #define BPlus320 BPlus1+3
@@ -22,6 +22,7 @@
 #define tempVar3 tempVar2+3
 #define tempVar4 tempVar3+3
 #define tempVar5 tempVar4+3
+#define tempVar6 tempVar5+3
 
    .org UserMem-2 
    .db tExtTok,tAsm84CeCmp 
@@ -32,48 +33,16 @@
 
 	call getTileMapBuffer
 	
-	;ld de,(tileMapBuffer)
-	;ld hl,(BPlus320)
-	;or a
-	;sbc hl,de
-	;xor a
-	;ld (penRow),a
-	;ld (penCol),a
-	;call _DispHL
-	
 mainMenuStartUp:
     ld hl,titleScrean_paletteStart 
     ld de,mpLcdPalette 
     ld bc,titleScrean_paletteEnd-titleScrean_paletteStart 
     ldir 
 	
-;	ld hl,logoSprite1
-;	ld de,(tileMapBuffer)
-;	call drawSprite
-;
-;	ld b,20
-;testLoop1:
-;	push bc
-;	call shiftTMBUp
-;	pop bc
-;	djnz testLoop1
-;	
-;	ld hl,(tileMapBuffer)
-;	ld de,graphBuff
-;	ld bc,320*240
-;	ldir
-;	call flipBuffers
-;testLoop:
-;	call _GetCSC
-;	cp 0
-;	jp z,testLoop	
-;	jp exit
-	
-	
 	ld a,1
 	ld (menuY),a
 	
-	ld hl,$FFFC00
+	ld hl,%010101010101010101010101
 	ld (charColour),hl
 
 	call renderBkgd
